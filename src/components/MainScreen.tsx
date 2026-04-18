@@ -143,8 +143,8 @@ export function MainScreen({ profile, updateProfile, onPlay, onSwitchProfile }: 
       <div className="fixed inset-0 z-0 bg-gradient-to-t from-black via-black/90 to-transparent pointer-events-none" />
 
       {/* Top Shelf Navigation (Desktop) / Bottom Navigation (Mobile) */}
-      <div className="fixed bottom-0 md:top-0 left-0 right-0 z-50 flex justify-center pb-safe pt-0 md:pt-12 pointer-events-none mb-4 md:mb-0">
-        <div className="flex gap-1 md:gap-4 bg-black/80 md:bg-white/10 backdrop-blur-2xl px-2 md:px-6 py-2 md:py-3 rounded-full border border-white/10 shadow-2xl pointer-events-auto">
+      <div className="fixed bottom-0 md:top-0 left-0 right-0 z-50 flex justify-center p-6 md:p-10 pointer-events-none">
+        <div className="flex gap-1 md:gap-3 glass p-1.5 md:p-2 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.4)] pointer-events-auto border-white/10 w-fit mx-auto">
           {TOP_NAV.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.label;
@@ -160,12 +160,12 @@ export function MainScreen({ profile, updateProfile, onPlay, onSwitchProfile }: 
                     setSelectedGenre(null);
                   }
                 }}
-                className={`flex flex-col md:flex-row items-center gap-1 md:gap-2 px-3 md:px-6 py-2 rounded-full transition-all duration-300 transform-gpu will-change-transform cursor-pointer hover:scale-105 min-w-[64px] md:min-w-0 ${
-                  isActive ? 'bg-white text-black shadow-lg' : 'text-white/70 hover:text-white hover:bg-white/20'
+                className={`flex flex-col md:flex-row items-center gap-1.5 md:gap-2 px-4 md:px-6 py-2 md:py-2.5 rounded-full transition-all duration-500 transform-gpu will-change-transform cursor-pointer group min-w-[64px] md:min-w-0 ${
+                  isActive ? 'bg-white text-black shadow-xl scale-105' : 'text-white/40 hover:text-white/90 hover:bg-white/5'
                 }`}
               >
-                <Icon size={20} />
-                <span className="text-[10px] md:text-base font-medium">{item.label === 'Switch Profile' ? 'Profile' : item.label}</span>
+                <Icon size={18} className="md:size-5" />
+                <span className="text-[10px] md:text-sm font-semibold tracking-tight">{item.label === 'Switch Profile' ? 'Identity' : item.label}</span>
               </button>
             );
           })}
@@ -173,19 +173,19 @@ export function MainScreen({ profile, updateProfile, onPlay, onSwitchProfile }: 
       </div>
 
       {/* Main Content Area */}
-      <div className="relative z-10 min-h-screen flex flex-col pt-32 pb-48">
+      <div className="relative z-10 min-h-screen flex flex-col pt-32 pb-32">
         {/* Search Tab */}
         {activeTab === 'Search' && (
-          <div className="px-6 md:px-24 w-full max-w-7xl mx-auto flex flex-col gap-6 md:gap-12 mt-8 md:mt-16">
+          <div className="px-6 md:px-24 w-full max-w-7xl mx-auto flex flex-col gap-8 md:gap-14 mt-8 md:mt-16">
             <div className="relative w-full">
-              <Search size={24} className="absolute left-6 md:left-8 top-1/2 -translate-y-1/2 text-white/50" />
+              <Search size={22} className="absolute left-6 md:left-10 top-1/2 -translate-y-1/2 text-white/30" />
               <input
                 ref={searchInputRef}
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search..."
-                className="w-full bg-white/10 backdrop-blur-md text-white text-xl md:text-4xl pl-16 md:pl-24 pr-8 py-4 md:py-6 rounded-2xl transition-all duration-300 outline-none focus:ring-4 focus:ring-white focus:bg-white/20 shadow-2xl placeholder:text-white/40"
+                placeholder="Find movies, actors, and series..."
+                className="w-full glass-dark text-white text-2xl md:text-5xl pl-16 md:pl-28 pr-8 py-5 md:py-8 rounded-[2rem] transition-all duration-500 outline-none focus:ring-1 focus:ring-white/20 shadow-2xl placeholder:text-white/20 font-display"
                 autoFocus
               />
               {selectedGenre && !searchQuery && (
@@ -242,44 +242,44 @@ export function MainScreen({ profile, updateProfile, onPlay, onSwitchProfile }: 
 
         {/* Banners */}
         {activeTab !== 'Search' && displayItem && (
-          <div className="relative w-full h-[60vh] md:h-[70vh] flex flex-col justify-end pb-12 md:pb-24 px-6 md:px-24 flex-shrink-0">
-            <h1 className="text-4xl md:text-7xl font-bold tracking-tight mb-4 drop-shadow-2xl max-w-4xl">
+          <div className="relative w-full h-[65vh] md:h-[75vh] flex flex-col justify-end pb-12 md:pb-28 px-6 md:px-24 flex-shrink-0">
+            <h1 className="text-4xl md:text-8xl font-display font-bold tracking-tight mb-4 drop-shadow-2xl max-w-4xl leading-[1.1]">
               {displayItem.title || displayItem.name}
             </h1>
-            <p className="text-base md:text-xl text-white/80 line-clamp-2 md:line-clamp-3 drop-shadow-md max-w-3xl mb-8">
+            <p className="text-base md:text-2xl text-white/70 line-clamp-2 md:line-clamp-3 drop-shadow-md max-w-3xl mb-10 font-medium">
               {displayItem.overview}
             </p>
             <div className="flex gap-4 md:gap-6">
               <button 
                 onClick={() => setSelectedMedia(displayItem)}
-                className="flex-1 md:flex-none px-6 md:px-8 py-3 md:py-4 rounded-xl flex items-center justify-center gap-3 transition-all duration-300 bg-white text-black hover:scale-105 hover:shadow-2xl font-semibold text-base md:text-lg cursor-pointer"
+                className="flex-1 md:flex-none px-8 md:px-12 py-4 md:py-5 rounded-2xl flex items-center justify-center gap-3 transition-all duration-500 bg-white text-black hover:scale-105 hover:shadow-[0_20px_60px_rgba(255,255,255,0.3)] font-bold text-lg md:text-xl cursor-pointer"
               >
-                <Play fill="currentColor" size={20} />
-                <span>Play</span>
+                <Play fill="currentColor" size={24} />
+                <span>Play Now</span>
               </button>
               <button 
                 onClick={() => setSelectedMedia(displayItem)}
-                className="flex-1 md:flex-none px-6 md:px-8 py-3 md:py-4 rounded-xl flex items-center justify-center gap-3 transition-all duration-300 bg-white/20 text-white backdrop-blur-md hover:bg-white/30 hover:scale-105 font-semibold text-base md:text-lg cursor-pointer"
+                className="flex-1 md:flex-none px-8 md:px-12 py-4 md:py-5 rounded-2xl flex items-center justify-center gap-3 transition-all duration-500 glass-dark text-white/90 hover:bg-white/10 hover:scale-105 font-bold text-lg md:text-xl cursor-pointer"
               >
-                <Info size={20} />
-                <span>More Info</span>
+                <Info size={24} />
+                <span>Details</span>
               </button>
             </div>
 
             {/* Indicator Bar */}
-            <div className="absolute bottom-8 left-0 right-0 flex justify-center">
-              <div className="flex items-center gap-2 bg-black/40 backdrop-blur-md px-3 py-2 rounded-full">
+            <div className="absolute bottom-10 left-0 right-0 flex justify-center">
+              <div className="flex items-center gap-3 glass px-4 py-2.5 rounded-full border-white/5">
                 {currentBanners.map((_, i) => (
                   <div 
                     key={i} 
                     onClick={() => setBannerIndex(i)}
-                    className={`h-1.5 rounded-full overflow-hidden transition-all duration-500 cursor-pointer hover:bg-white/60 ${
-                      i === bannerIndex ? 'w-8 bg-white/30' : 'w-1.5 bg-white/40'
+                    className={`h-1.5 rounded-full overflow-hidden transition-all duration-700 cursor-pointer hover:bg-white/60 ${
+                      i === bannerIndex ? 'w-10 bg-white/20' : 'w-1.5 bg-white/30 hover:bg-white'
                     }`}
                   >
                     {i === bannerIndex && (
                       <div 
-                        className="h-full bg-white"
+                        className="h-full bg-white shadow-[0_0_10px_white]"
                         style={{ animation: 'fillProgress 8s linear forwards' }}
                       />
                     )}
@@ -292,14 +292,14 @@ export function MainScreen({ profile, updateProfile, onPlay, onSwitchProfile }: 
 
         {/* Rows */}
         {activeTab !== 'Search' && (
-          <div className="flex flex-col gap-16 w-full">
+          <div className="flex flex-col gap-20 w-full">
             {activeTab === 'Home' && (
               <>
-                <MediaRow title="Continue Watching" items={profile.history} onSelect={setSelectedMedia} />
+                <MediaRow title="Recently Viewed" items={profile.history} onSelect={setSelectedMedia} />
                 <MediaRow title="My Favorites" items={profile.favorites} onSelect={setSelectedMedia} />
-                <MediaRow title="Trending Now" items={trending} onSelect={setSelectedMedia} large />
-                <MediaRow title="Popular Movies" items={movies} onSelect={setSelectedMedia} />
-                <MediaRow title="Popular TV Shows" items={tv} onSelect={setSelectedMedia} />
+                <MediaRow title="Trending Across Lux" items={trending} onSelect={setSelectedMedia} large />
+                <MediaRow title="Blockbuster Movies" items={movies} onSelect={setSelectedMedia} />
+                <MediaRow title="Premium TV Series" items={tv} onSelect={setSelectedMedia} />
               </>
             )}
             {activeTab === 'Movies' && (
@@ -345,7 +345,7 @@ function MediaRow({ title, items, onSelect, large }: MediaRowProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   if (!items?.length) return null;
 
-  const tileWidth = large ? (window.innerWidth < 768 ? 160 : 240) : (window.innerWidth < 768 ? 130 : 200);
+  const tileWidth = large ? (window.innerWidth < 768 ? 160 : 260) : (window.innerWidth < 768 ? 130 : 210);
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
@@ -358,61 +358,56 @@ function MediaRow({ title, items, onSelect, large }: MediaRowProps) {
   };
 
   return (
-    <div className="flex flex-col gap-2 md:gap-4 w-full group/row relative">
-      <h2 className="text-xl md:text-2xl font-semibold pl-6 md:pl-24 text-white/90">
+    <div className="flex flex-col gap-3 md:gap-5 w-full group/row relative">
+      <h2 className="text-xl md:text-3xl font-display font-semibold pl-6 md:pl-24 text-white/90 tracking-tight">
         {title}
       </h2>
       
       {/* Scroll Buttons */}
       <button 
         onClick={() => scroll('left')}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-40 bg-black/50 hover:bg-white/20 backdrop-blur-md p-4 rounded-full opacity-0 group-hover/row:opacity-100 transition-all duration-300 hover:scale-110 cursor-pointer hidden md:flex items-center justify-center border border-white/10"
+        className="absolute left-6 top-1/2 -translate-y-1/2 z-40 glass p-5 rounded-full opacity-0 group-hover/row:opacity-100 transition-all duration-500 hover:scale-110 cursor-pointer hidden md:flex items-center justify-center border-white/10 shadow-2xl"
       >
         <ChevronLeft size={32} />
       </button>
 
       <button 
         onClick={() => scroll('right')}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-40 bg-black/50 hover:bg-white/20 backdrop-blur-md p-4 rounded-full opacity-0 group-hover/row:opacity-100 transition-all duration-300 hover:scale-110 cursor-pointer hidden md:flex items-center justify-center border border-white/10"
+        className="absolute right-6 top-1/2 -translate-y-1/2 z-40 glass p-5 rounded-full opacity-0 group-hover/row:opacity-100 transition-all duration-500 hover:scale-110 cursor-pointer hidden md:flex items-center justify-center border-white/10 shadow-2xl"
       >
         <ChevronRight size={32} />
       </button>
 
       <div 
         ref={scrollRef}
-        tabIndex={0}
-        onMouseEnter={() => scrollRef.current?.focus()}
-        onKeyDown={(e) => {
-          if (e.key === 'ArrowLeft') scroll('left');
-          if (e.key === 'ArrowRight') scroll('right');
-        }}
-        className="flex overflow-x-auto gap-4 md:gap-8 px-6 md:px-24 pb-8 pt-2 md:pt-4 no-scrollbar snap-x scroll-smooth outline-none focus:ring-2 focus:ring-white/20 rounded-3xl"
+        className="flex overflow-x-auto gap-5 md:gap-8 px-6 md:px-24 pb-10 pt-2 no-scrollbar snap-x scroll-smooth"
       >
         {items.map((item) => (
           <div
             key={item.id}
             onClick={() => onSelect(item)}
-            className="flex flex-col gap-3 flex-shrink-0 transition-all duration-300 ease-out transform-gpu hover:scale-105 hover:z-50 cursor-pointer group snap-start"
+            className="flex flex-col gap-3 flex-shrink-0 transition-all duration-500 ease-out transform-gpu hover:scale-105 hover:z-30 cursor-pointer group snap-start"
             style={{ width: tileWidth }}
           >
             <div 
-              className="relative w-full rounded-2xl overflow-hidden shadow-lg transition-all duration-300 group-hover:shadow-[0_30px_60px_rgba(0,0,0,0.8)] group-hover:ring-4 group-hover:ring-white"
+              className="relative w-full rounded-2xl md:rounded-[2rem] overflow-hidden shadow-xl transition-all duration-500 group-hover:shadow-[0_40px_80px_rgba(0,0,0,0.6)] group-hover:ring-1 group-hover:ring-white/30"
               style={{ aspectRatio: '2/3' }}
             >
+              <div className="absolute inset-0 bg-white/5 group-hover:opacity-0 transition-opacity" />
               {item.poster_path ? (
                 <img 
                   src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} 
                   alt={item.title || item.name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-500"
                   loading="lazy"
                 />
               ) : (
-                <div className="w-full h-full bg-neutral-800 flex items-center justify-center p-4 text-center">
+                <div className="w-full h-full glass flex items-center justify-center p-4 text-center font-display">
                   {item.title || item.name}
                 </div>
               )}
             </div>
-            <span className="text-center font-medium truncate px-2 text-white/60 group-hover:text-white transition-colors">
+            <span className="text-center text-sm md:text-base font-semibold truncate px-2 text-white/30 group-hover:text-white/90 transition-all duration-500 tracking-tight">
               {item.title || item.name}
             </span>
           </div>
@@ -479,77 +474,83 @@ function DetailsModal({ media, profile, updateProfile, onClose, onPlay }: any) {
     <div className="fixed inset-0 z-[100] bg-black text-white flex flex-col overflow-y-auto no-scrollbar pb-safe">
       <button 
         onClick={onClose}
-        className="fixed top-6 md:top-8 right-6 md:right-8 z-[110] bg-black/50 hover:bg-white/20 backdrop-blur-md p-3 md:p-4 rounded-full transition-colors cursor-pointer"
+        className="fixed top-6 md:top-10 right-6 md:right-10 z-[110] glass p-4 md:p-5 rounded-full transition-all duration-500 hover:bg-white/20 hover:scale-110 cursor-pointer shadow-2xl border-white/5"
       >
-        <X size={24} />
+        <X size={28} />
       </button>
 
       {media.backdrop_path && (
-        <div className="absolute top-0 left-0 right-0 h-[40vh] md:h-[60vh] z-0 pointer-events-none">
-          <img src={`https://image.tmdb.org/t/p/w1280${media.backdrop_path}`} className="w-full h-full object-cover opacity-30" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
+        <div className="absolute top-0 left-0 right-0 h-[50vh] md:h-[70vh] z-0 pointer-events-none">
+          <img src={`https://image.tmdb.org/t/p/w1280${media.backdrop_path}`} className="w-full h-full object-cover opacity-40 grayscale-[0.3]" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
         </div>
       )}
       
-      <div className="relative z-10 flex flex-col p-6 md:p-16 pt-16 md:pt-24 min-h-screen">
-        <div className="flex-shrink-0 flex flex-col gap-4 md:gap-6 max-w-5xl">
-          <h1 className="text-4xl md:text-7xl font-bold tracking-tight drop-shadow-2xl">{media.title || media.name}</h1>
-          <div className="flex gap-4 text-white/60 text-base md:text-xl font-medium">
-            <span>{isTV ? 'TV Series' : 'Movie'}</span>
+      <div className="relative z-10 flex flex-col p-6 md:p-24 pt-20 md:pt-32 min-h-screen">
+        <div className="flex-shrink-0 flex flex-col gap-6 md:gap-8 max-w-5xl">
+          <h1 className="text-5xl md:text-9xl font-display font-black tracking-tighter drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)] leading-[0.9]">
+            {media.title || media.name}
+          </h1>
+          <div className="flex gap-4 text-white/40 text-lg md:text-2xl font-bold tracking-tight">
+            <span className="bg-white/10 px-3 py-1 rounded-lg border border-white/10">{isTV ? 'Series' : 'Feature'}</span>
             <span>•</span>
-            <span>TMDB</span>
+            <span className="text-white/30">TMDB Premium Quality</span>
           </div>
-          <p className="text-lg md:text-2xl text-white/90 leading-relaxed drop-shadow-md">{media.overview}</p>
+          <p className="text-xl md:text-3xl text-white/50 leading-relaxed font-medium drop-shadow-md line-clamp-4 md:line-clamp-none">
+            {media.overview}
+          </p>
           
           {cast.length > 0 && (
-            <div className="flex gap-4 md:gap-6 mt-4 overflow-x-auto pb-4 no-scrollbar">
+            <div className="flex gap-4 md:gap-8 mt-6 overflow-x-auto pb-6 no-scrollbar">
               {cast.map(c => (
-                <div key={c.id} className="flex flex-col items-center gap-2 md:gap-3 w-20 md:w-24 flex-shrink-0">
-                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden bg-white/10 border border-white/20 flex items-center justify-center shadow-lg">
+                <div key={c.id} className="flex flex-col items-center gap-3 md:gap-4 w-24 md:w-32 flex-shrink-0 group/cast">
+                  <div className="w-20 h-20 md:w-28 md:h-28 rounded-3xl overflow-hidden glass border-white/20 flex items-center justify-center shadow-xl transition-all duration-500 group-hover/cast:scale-105 group-hover/cast:ring-4 group-hover/cast:ring-white/10">
                     {c.profile_path ? (
-                      <img src={`https://image.tmdb.org/t/p/w200${c.profile_path}`} className="w-full h-full object-cover" />
+                      <img src={`https://image.tmdb.org/t/p/w200${c.profile_path}`} className="w-full h-full object-cover grayscale-[0.2] group-hover/cast:grayscale-0 transition-all duration-500" />
                     ) : (
-                      <UserCircle size={32} className="text-white/40" />
+                      <UserCircle size={40} className="text-white/20" />
                     )}
                   </div>
-                  <span className="text-[10px] md:text-sm font-medium text-center text-white/80 line-clamp-2 leading-tight">{c.name}</span>
+                  <span className="text-xs md:text-base font-bold text-center text-white/40 group-hover/cast:text-white/80 transition-colors line-clamp-2 leading-tight tracking-tight">
+                    {c.name}
+                  </span>
                 </div>
               ))}
             </div>
           )}
           
-          <div className="flex gap-4 md:gap-6 mt-6 md:mt-8">
+          <div className="flex gap-4 md:gap-8 mt-8 md:mt-10">
             <button 
               onClick={handlePlay}
-              className="flex-1 md:flex-none px-6 md:px-10 py-4 md:py-5 rounded-2xl flex items-center justify-center gap-4 transition-all duration-300 bg-white text-black hover:scale-105 hover:shadow-[0_20px_40px_rgba(255,255,255,0.2)] cursor-pointer"
+              className="flex-1 md:flex-none px-10 md:px-16 py-5 md:py-6 rounded-2xl md:rounded-[2rem] flex items-center justify-center gap-4 transition-all duration-500 bg-white text-black hover:scale-105 hover:shadow-[0_30px_80px_rgba(255,255,255,0.4)] cursor-pointer"
             >
-              <Play fill="currentColor" size={24} />
-              <span className="font-bold text-lg md:text-xl">Play</span>
+              <Play fill="currentColor" size={28} />
+              <span className="font-black text-xl md:text-2xl tracking-tighter uppercase">Watch Now</span>
             </button>
             <button 
               onClick={toggleFavorite}
-              className="flex-1 md:flex-none px-6 md:px-10 py-4 md:py-5 rounded-2xl flex items-center justify-center gap-4 transition-all duration-300 bg-white/10 text-white backdrop-blur-md hover:bg-white/20 hover:scale-105 cursor-pointer"
+              className="flex-1 md:flex-none px-10 md:px-16 py-5 md:py-6 rounded-2xl md:rounded-[2rem] flex items-center justify-center gap-4 transition-all duration-500 glass hover:bg-white/10 hover:scale-105 shadow-2xl cursor-pointer"
             >
-              <Heart fill={isFav ? "currentColor" : "none"} className={isFav ? "text-red-500" : ""} size={24} />
-              <span className="font-bold text-lg md:text-xl">{isFav ? 'Remove' : 'Favorite'}</span>
+              <Heart fill={isFav ? "white" : "none"} className={isFav ? "text-rose-500 scale-110" : "text-white/60"} size={28} />
+              <span className="font-bold text-xl md:text-2xl tracking-tighter uppercase text-white/90">{isFav ? 'In List' : 'Add List'}</span>
             </button>
           </div>
         </div>
 
         {isTV && seasons.length > 0 && (
-          <div className="mt-12 md:mt-24 flex flex-col md:flex-row gap-8 md:gap-12 flex-1">
+          <div className="mt-20 md:mt-32 flex flex-col md:flex-row gap-12 md:gap-20 flex-1">
             {/* Seasons List */}
-            <div className="w-full md:w-1/3 flex flex-col gap-4">
-              <h3 className="text-2xl md:text-4xl font-bold mb-2 md:mb-6 text-white/90 drop-shadow-md">Seasons</h3>
-              <div className="flex md:flex-col gap-3 md:gap-4 pb-4 md:pb-0 overflow-x-auto md:overflow-x-visible no-scrollbar">
+            <div className="w-full md:w-1/4 flex flex-col gap-6">
+              <h3 className="text-3xl md:text-5xl font-display font-black mb-4 md:mb-10 text-white tracking-tighter">Seasons</h3>
+              <div className="flex md:flex-col gap-4 md:gap-5 pb-6 md:pb-0 overflow-x-auto md:overflow-x-visible no-scrollbar">
                 {seasons.map((season) => (
                   <button 
                     key={season.id}
                     onClick={() => setSelectedSeason(season)}
-                    className={`px-4 md:px-8 py-3 md:py-6 rounded-2xl md:rounded-3xl text-lg md:text-3xl font-medium transition-all duration-300 text-left cursor-pointer whitespace-nowrap md:whitespace-normal ${
+                    className={`px-6 md:px-10 py-5 md:py-8 rounded-2xl md:rounded-[2rem] text-xl md:text-4xl font-display font-bold transition-all duration-500 text-left cursor-pointer whitespace-nowrap md:whitespace-normal border ${
                       selectedSeason?.id === season.id
-                        ? 'bg-white text-black shadow-2xl scale-[1.02]' 
-                        : 'bg-white/5 text-white/60 hover:bg-white/10 hover:text-white'
+                        ? 'bg-white text-black border-white shadow-[0_20px_60px_rgba(255,255,255,0.2)] scale-[1.05]' 
+                        : 'bg-white/5 text-white/30 border-white/5 hover:bg-white/10 hover:text-white/80'
                     }`}
                   >
                     {season.name}
@@ -559,31 +560,34 @@ function DetailsModal({ media, profile, updateProfile, onClose, onPlay }: any) {
             </div>
 
             {/* Episodes List */}
-            <div className="w-full md:w-2/3 flex flex-col gap-4">
-              <h3 className="text-2xl md:text-4xl font-bold mb-2 md:mb-6 text-white/90 drop-shadow-md">Episodes</h3>
-              <div className="flex flex-col gap-4 md:gap-6 md:pr-4">
+            <div className="w-full md:w-3/4 flex flex-col gap-6">
+              <h3 className="text-3xl md:text-5xl font-display font-black mb-4 md:mb-10 text-white tracking-tighter">Episodes</h3>
+              <div className="flex flex-col gap-6 md:gap-8 md:pr-4">
                 {episodes.map((episode) => (
                   <div 
                     key={episode.id}
                     onClick={() => handlePlayEpisode(episode.episode_number)}
-                    className="flex flex-col sm:flex-row gap-4 md:gap-8 p-4 md:p-6 rounded-2xl md:rounded-3xl transition-all duration-300 bg-white/5 text-white backdrop-blur-md border border-white/5 hover:bg-white/10 hover:scale-[1.01] cursor-pointer group"
+                    className="flex flex-col sm:flex-row gap-6 md:gap-10 p-6 md:p-8 rounded-[2rem] md:rounded-[3rem] transition-all duration-500 glass-dark border-white/5 hover:bg-white/10 hover:scale-[1.02] cursor-pointer group shadow-2xl"
                   >
-                    <div className="w-full sm:w-48 md:w-72 aspect-video bg-neutral-800 rounded-xl md:rounded-2xl overflow-hidden flex-shrink-0 shadow-lg relative">
+                    <div className="w-full sm:w-56 md:w-96 aspect-video bg-white/5 rounded-2xl md:rounded-[2rem] overflow-hidden flex-shrink-0 shadow-xl relative group-hover:shadow-[0_30px_60px_rgba(0,0,0,0.8)] transition-all duration-500">
                       {episode.still_path ? (
-                        <img src={`https://image.tmdb.org/t/p/w500${episode.still_path}`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                        <img src={`https://image.tmdb.org/t/p/w500${episode.still_path}`} className="w-full h-full object-cover grayscale-[0.3] group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" />
                       ) : (
-                        <div className="absolute inset-0 flex items-center justify-center text-white/30">No Image</div>
+                        <div className="absolute inset-0 flex items-center justify-center text-white/10 font-bold">No Preview</div>
                       )}
-                      <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <Play fill="white" size={32} className="drop-shadow-lg" />
+                      <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
+                        <div className="glass p-5 rounded-full shadow-2xl">
+                          <Play fill="white" size={40} className="drop-shadow-2xl" />
+                        </div>
                       </div>
                     </div>
-                    <div className="flex flex-col justify-center flex-1 min-w-0">
-                      <h4 className="text-xl md:text-2xl font-bold mb-1 md:mb-2 truncate text-white group-hover:text-blue-400 transition-colors">
-                        {episode.episode_number}. {episode.name}
+                    <div className="flex flex-col justify-center flex-1 min-w-0 pr-4">
+                      <h4 className="text-2xl md:text-4xl font-display font-bold mb-2 md:mb-4 truncate text-white/40 group-hover:text-white transition-all duration-500 tracking-tighter">
+                        <span className="text-white/10 group-hover:text-white/30 mr-3">{episode.episode_number < 10 ? `0${episode.episode_number}` : episode.episode_number}</span>
+                        {episode.name}
                       </h4>
-                      <p className="text-sm md:text-lg line-clamp-2 md:line-clamp-3 text-white/60">
-                        {episode.overview || 'No description available.'}
+                      <p className="text-lg md:text-2xl line-clamp-2 md:line-clamp-3 text-white/30 group-hover:text-white/60 transition-all duration-500 font-medium leading-relaxed">
+                        {episode.overview || 'Synopsis not available for this broadcast.'}
                       </p>
                     </div>
                   </div>

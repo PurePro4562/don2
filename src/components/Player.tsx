@@ -47,10 +47,9 @@ export function Player({ item, season, episode, onClose }: PlayerProps) {
       />
       <button 
         onClick={onClose}
-        className="absolute top-6 md:top-8 left-6 md:left-8 mt-safe ml-safe bg-black/50 hover:bg-black/80 backdrop-blur-md px-4 md:px-6 py-2 md:py-3 rounded-full text-white/90 text-xs md:text-sm flex items-center gap-2 md:gap-3 transition-colors cursor-pointer z-50 group"
+        className="absolute top-6 md:top-10 left-6 md:left-10 mt-safe ml-safe glass p-4 md:p-5 rounded-full text-white/90 transition-all duration-500 hover:bg-white/20 hover:scale-110 shadow-2xl border-white/10 z-50 group"
       >
-        <X size={18} className="group-hover:scale-110 transition-transform" />
-        <span className="font-bold">Exit</span>
+        <X size={24} className="group-hover:rotate-90 transition-transform duration-500" />
       </button>
     </div>
   );
